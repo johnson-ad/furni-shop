@@ -1,56 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Product } from '../../data/products';
 import Button from '../../components/ui/Button';
-
-// Définition du store pour les favoris
-interface FavoritesStore {
-  favorites: Product[];
-  addToFavorites: (product: Product) => void;
-  removeFromFavorites: (productId: number) => void;
-  isFavorite: (productId: number) => boolean;
-}
-
-// Création d'un hook personnalisé pour gérer les favoris
-const useFavoritesStore = (): FavoritesStore => {
-  const [favorites, setFavorites] = useState<Product[]>([]);
-
-  // Charger les favoris depuis le localStorage au chargement de la page
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
-    }
-  }, []);
-
-  // Sauvegarder les favoris dans le localStorage à chaque modification
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
-
-  const addToFavorites = (product: Product) => {
-    setFavorites(prev => {
-      if (!prev.some(item => item.id === product.id)) {
-        return [...prev, product];
-      }
-      return prev;
-    });
-  };
-
-  const removeFromFavorites = (productId: number) => {
-    setFavorites(prev => prev.filter(item => item.id !== productId));
-  };
-
-  const isFavorite = (productId: number) => {
-    return favorites.some(item => item.id === productId);
-  };
-
-  return { favorites, addToFavorites, removeFromFavorites, isFavorite };
-};
+import { useFavoritesStore } from '../../hooks/useFavoritesStore';
 
 const FavoritesPage = () => {
   const { favorites, removeFromFavorites } = useFavoritesStore();
@@ -138,6 +93,3 @@ const FavoritesPage = () => {
 };
 
 export default FavoritesPage;
-
-// Exporter le hook pour l'utiliser dans d'autres composants
-export { useFavoritesStore };

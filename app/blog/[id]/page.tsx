@@ -276,7 +276,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           transition={{ delay: 1, duration: 0.8 }}
         >
           <Link href="/blog">
-            <Button variant="outline">
+            <Button variant="secondary">
               ← Retour au blog
             </Button>
           </Link>
@@ -284,14 +284,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="flex space-x-4">
             {postId > 1 && (
               <Link href={`/blog/${postId - 1}`}>
-                <Button variant="outline">
+                <Button variant="secondary">
                   ← Article précédent
                 </Button>
               </Link>
             )}
             {postId < blogPosts.length && (
               <Link href={`/blog/${postId + 1}`}>
-                <Button variant="outline">
+                <Button variant="secondary">
                   Article suivant →
                 </Button>
               </Link>

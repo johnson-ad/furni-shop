@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useFavoritesStore } from '../../app/favorites/page';
+import { useFavoritesStore } from '../../hooks/useFavoritesStore';
 import { Product } from '../../types/product';
 
 interface WishlistButtonProps {

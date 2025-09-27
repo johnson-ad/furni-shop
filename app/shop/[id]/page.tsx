@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, use } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -10,14 +10,14 @@ import ProductCard from '../../../components/ui/ProductCard';
 import Button from '../../../components/ui/Button';
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
-const ProductPage = ({ params }: ProductPageProps) => {
-  // Utiliser React.use pour accéder aux paramètres
-  const resolvedParams = use(Promise.resolve(params));
+const ProductPage = async ({ params }: ProductPageProps) => {
+  // Attendre les paramètres dans Next.js 15
+  const resolvedParams = await params;
   const productId = parseInt(resolvedParams.id);
   const product = getProductById(productId);
   const [quantity, setQuantity] = useState(1);
